@@ -1,20 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { View } from 'react-native';
+import NewProductPage from './src/screens/NewProductPage';
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Nuevo</Text>
+    <View>
+      <NewProductPage />
       <StatusBar style="auto" />
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
