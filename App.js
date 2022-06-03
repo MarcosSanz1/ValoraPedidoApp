@@ -1,12 +1,14 @@
 import { StatusBar } from 'expo-status-bar';
-import { View } from 'react-native';
+import { View, SafeAreaView } from 'react-native';
 import NewProductPage from './src/screens/NewProductPage';
+import SendProductPage from './src/screens/SendProductPage';
 
 export default function App() {
   return (
-    <View>
-      <NewProductPage />
+    <SafeAreaView style={{flex: 1}}>
+      {/* <NewProductPage /> */}
+      <SendProductPage />
       <StatusBar style="auto" />
-    </View>
+    </SafeAreaView>
   );
 }
