@@ -1,4 +1,6 @@
-{
+import 'dotenv/config'
+
+export default {
   "expo": {
     "name": "rate-order-app",
     "slug": "rate-order-app",

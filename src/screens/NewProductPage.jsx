@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
 import ButtonItem from '../components/ButtonItem'
 import Input from '../components/Input'
 
@@ -10,11 +10,20 @@ const NewProductPage = () => {
             <View style={{display: 'flex', alignItems: 'flex-end'}}>
                 <Input />
             </View>
-            <View style={{margin: '10%', display: 'flex', justifyContent: 'center', color: 'black' }}>
+            <View style={styles.buttonCreate}>
                 <ButtonItem name={'CREATE PRODUCT'} />
             </View>
         </View>
     )
 }
+
+const styles = StyleSheet.create({
+    buttonCreate: {
+        margin: '10%', 
+        display: 'flex', 
+        justifyContent: 'center', 
+        color: 'black'
+    }
+  })
 
 export default NewProductPage
