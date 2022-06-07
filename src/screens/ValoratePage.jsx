@@ -12,7 +12,7 @@ const ValoratePage = () => {
                 <Rating
                     style={{marginTop: 10}}
                     imageSize={60}
-                    startingValue={4}
+                    startingValue={3}
                 />
             </View>
             <View style={{marginTop: 40}}>

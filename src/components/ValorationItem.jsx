@@ -15,6 +15,7 @@ const ValorationItem = (props) => {
                     <Rating
                         imageSize={25}
                         startingValue={props.rate}
+                        readonly
                     />
                     <Text style={{paddingLeft: 20, fontSize: 15}}>{props.date}</Text>
                 </View>

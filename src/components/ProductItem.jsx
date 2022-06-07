@@ -22,8 +22,9 @@ const ProductItem = (props) => {
                     <Text style={{fontSize: 16}}>{props.price}</Text>
                     {props.allContent ? 
                         <Rating
-                            imageSize={30}
                             startingValue={0}
+                            imageSize={30}
+                            readonly
                         />
                     : null}
                     {!props.allContent ? 

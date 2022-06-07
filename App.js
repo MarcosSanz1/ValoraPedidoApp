@@ -9,11 +9,11 @@ import AllValorationsPage from './src/screens/AllValorationsPage';
 export default function App() {
   return (
     <SafeAreaView style={{flex: 1}}>
-      {/* <NewProductPage /> */}
+      <NewProductPage />
       {/* <SendProductPage /> */}
       {/* <MyProductsPage /> */}
       {/* <ValoratePage /> */}
-      <AllValorationsPage />
+      {/* <AllValorationsPage /> */}
       <StatusBar style="auto" />
     </SafeAreaView>
   );

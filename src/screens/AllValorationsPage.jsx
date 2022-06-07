@@ -67,6 +67,7 @@ const AllValorationsPage = () => {
                     style={{display: 'flex', justifyContent: 'center'}}
                     imageSize={35}
                     startingValue={4}
+                    readonly
                 />
             </View>
             <FlatList 
