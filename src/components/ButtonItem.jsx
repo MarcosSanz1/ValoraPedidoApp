@@ -1,10 +1,12 @@
 import React, {useState} from 'react';
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 
+// El botón va a recibir una función 
 const ButtonItem = (props) => {
     return (
         <TouchableOpacity
             style={[styles.buttonCreate, props.style]}
+            onPress={props.onClick}
         >
             <Text style={styles.textCreate}>{props.name}</Text>
         </TouchableOpacity>

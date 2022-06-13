@@ -5,50 +5,52 @@ import { loadImageGallery } from '../config/helpers';
 
 const Input = (props) => {
 
-  const [shop, setShop] = useState(null);
-  const [name, setName] = useState(null);
-  const [price, setPrice] = useState(null);
-
-  const [image, setImage] = useState(undefined);
-
-  const chooseImage = async() => {
-    setImage((await loadImageGallery([1, 1])).image)
-  }
-
   return (
     <View>
         <View style={{marginVertical: '3%'}}>
             <Text style={styles.label}>Shop</Text>
             <TextInput
+                name={'shop'}
                 style={styles.input}
                 placeholder={'Product shop'}
+                onChangeText={text => props.product(prev => ({
+                    ...prev,
+                    ['shop']: text
+                }))}
+                // onChange={handleChange}
+                // onChangeText={text => setShop(text)}
             />
         </View>
         <View style={{marginVertical: '3%'}}>
             <Text style={styles.label}>Name</Text>
             <TextInput
+                name={'name'}
                 style={styles.input}
                 placeholder={'Name product'}
+                onChangeText={text => props.product(prev => ({
+                    ...prev,
+                    ['name']: text
+                }))}
+                // onChange={handleChange}
+                // onChangeText={text => setName(text)}
             />
         </View>
         <View style={{marginVertical: '3%'}}>
             <Text style={styles.label}>Price</Text>
             <TextInput
+                name={'price'}
+                
                 style={styles.input}
                 placeholder={'Product price'}
                 keyboardType={'numeric'}
+                onChangeText={text => props.product(prev => ({
+                    ...prev,
+                    ['price']: parseInt(text)
+                }))}
+                // onChange={handleChange}
+                // onChangeText={text => setPrice(text)}
             />
         </View>
-        <View style={{marginVertical: '3%'}}>
-            <Text style={styles.label}>Image</Text>
-            <TouchableOpacity onPress={chooseImage}>
-                <Image
-                    style={styles.imagen}
-                    source={{uri: image || 'https://cdn2.vectorstock.com/i/1000x1000/65/11/line-picture-photo-gallery-icon-vector-17696511.jpg'}}
-                />
-            </TouchableOpacity>
-        </View>
-        
     </View>
   );
 }
@@ -64,13 +66,6 @@ const styles = StyleSheet.create({
     label: {
         fontWeight: 'bold',
         fontSize: 17
-    },
-    imagen: {
-        paddingTop: 20,
-        height: 100,
-        width: 100,
-        padding: 20,
-        marginTop: 10
     }
 });
 

@@ -3,43 +3,45 @@ import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { Card, IconButton } from 'react-native-paper';
 import ButtonItem from './ButtonItem';
 import { Rating } from 'react-native-ratings';
+import { deleteProduct } from '../services/product.service';
 
 const ProductItem = (props) => {
+
+    // Estas funciones redirigirán y pasarán datos a otras páginas
+    const goToValorate = () => {
+        
+    }
+
+    const goToViewValorates = () => {
+
+    }
+
     return (
         <Card style={{height: props.heightCard, marginBottom: 30}}>
             <View style={styles.header}>
                 <Text style={styles.title}>{props.shop}</Text>
-                {!props.allContent ? 
-                    <IconButton icon={"delete"}/>
-                : null}
+                <IconButton icon={"close"} size={28} onPress={() => deleteProduct(props._id)}/>
             </View>
             <Card.Content style={{display: 'flex', flexDirection: 'row'}}>
                 <View style={{ width: '40%'}}>
                     <Card.Cover style={{ height: 120}} source={{ uri: props.image }} />
                 </View>
-                <View style={{width: '60%', display: 'flex', justifyContent: 'center'}}>
+                <View style={{width: '60%', display: 'flex', alignContent: 'center', alignItems: 'center'}}>
                     <Text style={{fontSize: 19}}>{props.name}</Text>
-                    <Text style={{fontSize: 16}}>{props.price}</Text>
-                    {props.allContent ? 
-                        <Rating
-                            startingValue={0}
-                            imageSize={30}
-                            readonly
-                        />
-                    : null}
-                    {!props.allContent ? 
-                        <View style={{marginTop: 18}}>
-                            <ButtonItem name={'SEND'} />
-                        </View>
-                    : null}
+                    <Text style={{fontSize: 16}}>{props.price} €</Text>
+                    <Rating
+                        startingValue={0}
+                        imageSize={30}
+                        readonly
+                    />
                 </View>
             </Card.Content>
-            {props.allContent ? 
-                <View style={styles.buttons}>
-                    <ButtonItem name={'RATE'} style={{width: '40%'}} />
-                    <ButtonItem name={'SEE RATINGS'} />
-                </View>
-            : null}
+            {/* Estos botones tendrán un redireccionamiento pasando datos */}
+            {/* Lo que hacía en el NewProduct era pasarle una función */}
+            <View style={styles.buttons}>
+                <ButtonItem name={'RATE'} style={{width: '40%'}} />
+                <ButtonItem name={'SEE RATINGS'} />
+            </View>
         </Card>
     )
 }
