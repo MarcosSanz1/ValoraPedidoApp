@@ -1,18 +1,46 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import { View, Text, StyleSheet, TextInput } from 'react-native'
 import ButtonItem from '../components/ButtonItem'
 import { Rating } from 'react-native-ratings'
+import { addValoration } from '../services/valoration.service'
 
-const ValoratePage = () => {
+const ValoratePage = ({route, navigation: {goBack}}) => {
+
+    const idProduct = route.params
+
+    const { itemId, callback } = route.params;
+
+    const [valoration, setValoration] = useState({
+        rate: 3,
+        comment: ''
+    })
+
+    const addNewValoration = async () => {
+        console.log("ROUTE PARAMS", route.params.id)
+        await addValoration(route.params.id, valoration).then(res => {
+            console.log("RES SERVICE Add Valoration ", res.data)
+            route.params.callback()
+            goBack()
+        }).catch (err => console.log('ERROR', err))
+    }
+
+    useEffect(() => {
+        console.log("ID DEL PRODUCTO ", idProduct)
+        console.log("Objeto valoración ", valoration)
+    },[valoration])
+
     return (
-        <View style={{marginTop: '15%', marginHorizontal: '7%'}}>
-            <Text>Give FeedBack</Text>
+        <View style={{flex: 1, paddingTop: '2%', paddingHorizontal: '7%', backgroundColor: 'white'}}>
             <View style={{display: 'flex', alignItems: 'flex-start', marginTop: 40}}>
                 <Text style={{fontSize: 18}}>How did we do?</Text>
                 <Rating
                     style={{marginTop: 10}}
                     imageSize={60}
                     startingValue={3}
+                    onFinishRating={rate => setValoration(prev => ({
+                        ...prev,
+                        ['rate']: rate
+                    }))}
                 />
             </View>
             <View style={{marginTop: 40}}>
@@ -25,11 +53,15 @@ const ValoratePage = () => {
                         placeholderTextColor="grey"
                         numberOfLines={10}
                         multiline={true}
+                        onChangeText={text => setValoration(prev => ({
+                            ...prev,
+                            ['comment']: text
+                        }))}
                     />
                 </View>
             </View>
             <View style={styles.footerButton}>
-                <ButtonItem name={'PUBLISH FEEDBACK'} />
+                <ButtonItem name={'PUBLISH FEEDBACK'} onClick={addNewValoration}/>
                 <Text style={{marginTop: 20, color: '#A2A2A2', textAlign: 'center'}}>Your review will be posted to Valorapp</Text>
             </View>
             

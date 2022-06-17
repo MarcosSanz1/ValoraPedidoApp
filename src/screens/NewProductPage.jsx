@@ -5,18 +5,30 @@ import ButtonItem from '../components/ButtonItem'
 import Input from '../components/Input'
 import { loadImageGallery } from '../config/helpers'
 import { addProduct } from '../services/product.service'
+import { useNavigation } from '@react-navigation/native'
 
 // Le tengo que pasar a ButtonItem la función de newProduct
-const NewProductPage = () => {
+const NewProductPage = ({route, navigation: {goBack}}) => {
     // const [product, setProduct] = useState(null);
     const [product, setProduct] = useState(null);
     const [image, setImage] = useState('https://cdn2.vectorstock.com/i/1000x1000/65/11/line-picture-photo-gallery-icon-vector-17696511.jpg');
 
-    // ESTA FUNCIÓN CREARÁ UN PRODUCTO Y VA A REDIRIGIRTE A LA LISTA DE PRODUCTOS
+    const navigation = useNavigation();
+
+    // ESTA FUNCIÓN CREARÁ UN PRODUCTO Y VA A REDIRIGIRTE A LA HOME
     const newProduct = async () => {
         console.log("Producto que me llega ", product)
-        await addProduct(product).then(res => console.log("RES SERVICES ", res)
+        await addProduct(product).then(res => {
+            console.log("RES SERVICES NEW PRODUCT", res)
+            // console.log("ROUTE.PARAMS ", route.params)
+            // if (route.params) {
+            //     goBack()
+            // } else {
+                navigation.navigate('Home')
+            // }
+        }
         ).catch (err => console.log('ERROR', err))
+        
     }
 
     const chooseImage = async() => {
@@ -32,8 +44,7 @@ const NewProductPage = () => {
     }, [image])
 
     return (
-        <View style={{marginTop: '15%'}}>
-            <Text>CREATE NEW PRODUCT</Text>
+        <View style={{flex: 1, paddingTop: '5%', backgroundColor: 'white'}}>
             <View style={{display: 'flex', alignItems: 'flex-end'}}>
                 <Input product={val => setProduct(val)}/>
             </View>

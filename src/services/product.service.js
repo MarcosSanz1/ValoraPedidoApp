@@ -1,7 +1,7 @@
 import axios from 'axios';
 import axiosRetry from 'axios-retry';
 
-const axiosInstance = axios.create({baseURL: 'http://192.168.1.42:3001/api/', responseType: 'json', headers: { 'Content-Type': 'application/json' }});
+const axiosInstance = axios.create({baseURL: 'http://192.168.1.41:3001/api/', responseType: 'json', headers: { 'Content-Type': 'application/json' }});
 
 const retryDelay = (retryNumber = 0) => { 
     const seconds = Math.pow(2, retryNumber) * 1000; 
@@ -12,7 +12,6 @@ const retryDelay = (retryNumber = 0) => {
 axiosRetry(axios, { 
     retries: 2, 
     retryDelay,
-    // retry on Network Error & 5xx responses 
     retryCondition: axiosRetry.isRetryableError
 }); 
 

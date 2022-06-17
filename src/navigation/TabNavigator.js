@@ -1,27 +1,41 @@
 import React from 'react'
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-// Tengo que importar 2 stack.Screen - El de la lista de productos y el del formulario para crear un producto
-// import { HomeStack, CreateProductStack } from './HomeStack'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import NewProductPage from '../screens/NewProductPage';
+import MyProductsPage from '../screens/MyProductsPage';
+import CreateProductStack from './CreateProductStack';
+import HomeStack from './HomeStack';
 
 const Tab = createBottomTabNavigator();
 
 export const BottomTabNavigator = () => {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator initialRouteName='Home'>
         <Tab.Screen 
-        name="Create"
-        component={CreateStack}
-        options={() => ({
-            headerShown: false
-        })} 
+          name="NewProduct"
+          component={CreateProductStack}
+          options={{title: 'CREATE NEW PRODUCT',
+          tabBarHideOnKeyboard: true,
+          headerShown: false,
+          tabBarShowLabel: false,
+          tabBarLabel: 'New',
+          tabBarActiveTintColor: 'black',
+          tabBarInactiveTintColor: 'gray',
+          tabBarIcon: (color) => (
+            <MaterialCommunityIcons name="plus" color={color} size={26} />
+          )}}
         />
         <Tab.Screen 
-        name="My Products" 
-        component={ProductsStack}
-        options={() => ({
-            headerShown: false
-        })} 
+          name="Home" 
+          component={HomeStack}
+          options={{
+            headerShown: false,
+            tabBarStyle: { display: "none" },
+          tabBarIcon: () => (
+            <MaterialCommunityIcons name="home" size={26} />
+          )}} 
         />
     </Tab.Navigator>
+    
   )
 }

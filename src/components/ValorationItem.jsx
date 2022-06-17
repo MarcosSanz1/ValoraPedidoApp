@@ -2,13 +2,15 @@ import React, {useState} from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import { Avatar, Card } from 'react-native-paper';
 import { Rating } from 'react-native-ratings';
+import moment from 'moment';
 
 const ValorationItem = (props) => {
+
     return (
         <Card style={{height: 200, marginBottom: 30, padding: 5}}>
             <View style={styles.header}>
-                <Avatar.Image size={55} source={props.userAvatar}/>
-                <Text style={styles.title}>{props.userName}</Text>
+                <Avatar.Image size={55} source={props.user.name}/>
+                <Text style={styles.title}>{props.user.name}</Text>
             </View>
             <Card.Content style={{display: 'flex'}}>
                 <View style={{ display: 'flex', flexDirection: 'row'}}>
@@ -17,7 +19,7 @@ const ValorationItem = (props) => {
                         startingValue={props.rate}
                         readonly
                     />
-                    <Text style={{paddingLeft: 20, fontSize: 15}}>{props.date}</Text>
+                    <Text style={{paddingLeft: 20, fontSize: 15}}>{moment(props.date).format('DD/MM/YYYY')}</Text>
                 </View>
                 <View style={{marginTop: 10, display: 'flex'}}>
                     <Text style={{fontSize: 16}}>{props.comment}</Text>

@@ -1,78 +1,54 @@
-import React from 'react'
+import React, { useEffect} from 'react'
 import { View, Text, FlatList, SafeAreaView, StyleSheet, Image } from 'react-native'
 import ValorationItem from '../components/ValorationItem'
 import { Rating } from 'react-native-ratings';
+import { findById } from '../services/product.service';
+import { useState } from 'react';
 
-const AllValorationsPage = () => {
-    const valorations = [
-        {
-          id: 1,
-          userName: 'sanzmarcos18',
-          userAvatar: 'https://avatars2.githubusercontent.com/u/4048971?v=4',
-          rate: 4,
-          date: '20/4/22',
-          comment: 'Muy buen producto'
-        },
-        {
-          id: 2,
-          userName: 'sanzmarcos18',
-          userAvatar: 'https://avatars2.githubusercontent.com/u/4046971?v=4',
-          rate: 5,
-          date: '20/4/22',
-          comment: 'Muy buen producto, he encontrado el mejor producto de la historia'
-        },
-        {
-          id: 3,
-          userName: 'sanzmarcos18',
-          userAvatar: 'https://avatars2.githubusercontent.com/u/4048971?v=4',
-          rate: 3,
-          date: '19/4/22',
-          comment: 'Muy buen producto, he encontrado el mejor producto de la historia, es muy sencillo de utilizar y va perfecto.'
-        },
-        {
-            id: 4,
-            userName: 'sanzmarcos18',
-            userAvatar: 'https://avatars2.githubusercontent.com/u/4048971?v=4',
-            rate: 3,
-            date: '19/4/22',
-            comment: 'Muy buen producto, he encontrado el mejor producto de la historia, es muy sencillo de utilizar y va perfecto.'
-        },
-        {
-            id: 5,
-            userName: 'sanzmarcos18',
-            userAvatar: 'https://avatars2.githubusercontent.com/u/4048971?v=4',
-            rate: 3,
-            date: '19/4/22',
-            comment: 'Muy buen producto, he encontrado el mejor producto de la historia, es muy sencillo de utilizar y va perfecto.'
-        }
-    ];
+const AllValorationsPage = ({ route, navigation }) => {
+
+    const [product, setProduct] = useState({})
+
+    const idProduct = route.params
+
+    const getProduct = async () => {
+        await findById(route.params.id).then(res => {
+            console.log("RES SERVICE FIND BY ID ", res.data)
+            setProduct(res.data)
+        }).catch (err => console.log('ERROR', err))
+    }
+
+    useEffect(() => {
+        getProduct()
+        console.log('Product ', product)
+    }, [])
 
     return (
-        <View style={{marginTop: 40}}>
+        <View style={{flex: 1, paddingTop: '2%', backgroundColor: 'white'}}>
             <View style={styles.header}>
                 <View style={{width: '35%'}}>
                     <Image 
-                        source={{uri: 'https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/refurb-iphone-12-pro-silver-2020?wid=1144&hei=1144&fmt=jpeg&qlt=90&.v=1635202851000'}}
+                        source={{uri: product.image}}
                         style={{width: 130, height: 130}} 
                     />
                 </View>
-                <View style={{width: '65%', display: 'flex', justifyContent: 'center'}}>
-                    <Text style={{fontWeight: 'bold', fontSize: 25}}>iPhone 12 Pro - MediaMarkt</Text>
+                <View style={{width: '65%', display: 'flex', justifyContent: 'center', paddingLeft: 10}}>
+                    <Text style={{fontWeight: 'bold', fontSize: 25}}>{product.name} - {product.shop}</Text>
                 </View>
             </View>
             <Text style={{fontWeight: 'bold', fontSize: 22, marginLeft: 30}}>Average Rating</Text>
             <View style={styles.ratingText}>
-                <Text style={{fontWeight: 'bold', fontSize: 40}}>4,0</Text>
+                <Text style={{fontWeight: 'bold', fontSize: 40}}>{product.rateTotal}</Text>
                 <Rating
                     style={{display: 'flex', justifyContent: 'center'}}
                     imageSize={35}
-                    startingValue={4}
+                    startingValue={product.rateTotal}
                     readonly
                 />
             </View>
             <FlatList 
                 contentContainerStyle={styles.list}
-                data={valorations}
+                data={product.valorations}
                 renderItem={({ item : valoration }) => (
                 <ValorationItem {...valoration} />
                 )}
@@ -97,8 +73,7 @@ const styles = StyleSheet.create({
     },
     list: {
         paddingHorizontal: 30, 
-        marginTop: 20, 
-        paddingBottom: '60%'
+        marginTop: 20
     }
 });
 

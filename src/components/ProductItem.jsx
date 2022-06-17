@@ -1,46 +1,61 @@
 import React, {useState} from 'react';
-import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, Alert } from 'react-native';
 import { Card, IconButton } from 'react-native-paper';
 import ButtonItem from './ButtonItem';
 import { Rating } from 'react-native-ratings';
 import { deleteProduct } from '../services/product.service';
+import { useNavigation } from '@react-navigation/native';
 
 const ProductItem = (props) => {
 
-    // Estas funciones redirigirán y pasarán datos a otras páginas
+    const navigation = useNavigation()
+
     const goToValorate = () => {
-        
+        navigation.navigate('Valorate', {id: props._id, callback: () => props.callback()})
     }
 
     const goToViewValorates = () => {
+        navigation.navigate('AllValorations', {id: props._id})
+    }
 
+    const removeProduct = () => {
+        Alert.alert(
+            "Are you sure?",
+            "Product will be deleted",
+            [
+              {
+                text: "Cancel",
+                onPress: () => console.log("Cancel Pressed"),
+                style: "cancel"
+              },
+              { text: "OK", onPress: () => {deleteProduct(props._id), props.callback()}}
+            ]
+          );
     }
 
     return (
         <Card style={{height: props.heightCard, marginBottom: 30}}>
             <View style={styles.header}>
                 <Text style={styles.title}>{props.shop}</Text>
-                <IconButton icon={"close"} size={28} onPress={() => deleteProduct(props._id)}/>
+                <IconButton icon={"close"} size={28} onPress={removeProduct}/>
             </View>
             <Card.Content style={{display: 'flex', flexDirection: 'row'}}>
                 <View style={{ width: '40%'}}>
                     <Card.Cover style={{ height: 120}} source={{ uri: props.image }} />
                 </View>
-                <View style={{width: '60%', display: 'flex', alignContent: 'center', alignItems: 'center'}}>
-                    <Text style={{fontSize: 19}}>{props.name}</Text>
-                    <Text style={{fontSize: 16}}>{props.price} €</Text>
+                <View style={{width: '60%'}}>
+                    <Text style={{fontSize: 19, marginLeft: 20}}>{props.name}</Text>
+                    <Text style={{fontSize: 16, marginLeft: 20}}>{props.price} €</Text>
                     <Rating
-                        startingValue={0}
+                        startingValue={props.rateTotal}
                         imageSize={30}
                         readonly
                     />
                 </View>
             </Card.Content>
-            {/* Estos botones tendrán un redireccionamiento pasando datos */}
-            {/* Lo que hacía en el NewProduct era pasarle una función */}
             <View style={styles.buttons}>
-                <ButtonItem name={'RATE'} style={{width: '40%'}} />
-                <ButtonItem name={'SEE RATINGS'} />
+                <ButtonItem name={'RATE'} style={{width: '40%'}} onClick={goToValorate}/>
+                <ButtonItem name={'SEE RATINGS'} onClick={goToViewValorates}/>
             </View>
         </Card>
     )

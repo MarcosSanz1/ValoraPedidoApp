@@ -1,19 +1,15 @@
 import { StatusBar } from 'expo-status-bar';
 import { View, SafeAreaView } from 'react-native';
-import NewProductPage from './src/screens/NewProductPage';
-import SendProductPage from './src/screens/SendProductPage';
-import MyProductsPage from './src/screens/MyProductsPage';
-import ValoratePage from './src/screens/ValoratePage';
-import AllValorationsPage from './src/screens/AllValorationsPage';
+import { NavigationContainer } from '@react-navigation/native';
+import { BottomTabNavigator } from './src/navigation/TabNavigator';
+import 'react-native-gesture-handler';
 
 export default function App() {
   return (
-    <SafeAreaView style={{flex: 1}}>
-      {/* <NewProductPage /> */}
-      {/* <SendProductPage /> */}
-      <MyProductsPage />
-      {/* <ValoratePage /> */}
-      {/* <AllValorationsPage /> */}
+    <SafeAreaView style={{flex: 1, backgroundColor: 'red'}}>
+      <NavigationContainer>
+        <BottomTabNavigator />
+      </NavigationContainer>
       <StatusBar style="auto" />
     </SafeAreaView>
   );
