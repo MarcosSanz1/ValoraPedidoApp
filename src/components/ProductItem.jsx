@@ -5,13 +5,15 @@ import ButtonItem from './ButtonItem';
 import { Rating } from 'react-native-ratings';
 import { deleteProduct } from '../services/product.service';
 import { useNavigation } from '@react-navigation/native';
+import { useEffect } from 'react';
 
+// This component receives a product to content of the card & return callback when user delete task
 const ProductItem = (props) => {
 
     const navigation = useNavigation()
 
     const goToValorate = () => {
-        navigation.navigate('Valorate', {id: props._id, callback: () => props.callback()})
+        navigation.navigate('Valorate', {id: props._id, loading: (load) => props.onLoading(load), callback: () => props.callback()})
     }
 
     const goToViewValorates = () => {
@@ -19,25 +21,41 @@ const ProductItem = (props) => {
     }
 
     const removeProduct = () => {
+        props.onLoading(true)
+        deleteProduct(props._id).then( res => {
+            props.onLoading(false)
+            console.log('Va bien')
+        }
+        ).catch( err => {
+            props.onLoading(false)
+            console.log('ERROR AAAA', err)
+        } 
+        )
+    }
+
+    const showDeleteProduct = () => {
         Alert.alert(
             "Are you sure?",
             "Product will be deleted",
             [
               {
                 text: "Cancel",
-                onPress: () => console.log("Cancel Pressed"),
                 style: "cancel"
               },
-              { text: "OK", onPress: () => {deleteProduct(props._id), props.callback()}}
+              { text: "OK", onPress: () => {removeProduct(), props.callback()}}
             ]
-          );
+        );
     }
+
+    const formatToCurrency = amount => {
+        return amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,") + " €";
+    };
 
     return (
         <Card style={{height: props.heightCard, marginBottom: 30}}>
             <View style={styles.header}>
                 <Text style={styles.title}>{props.shop}</Text>
-                <IconButton icon={"close"} size={28} onPress={removeProduct}/>
+                <IconButton icon={"close"} size={28} onPress={showDeleteProduct}/>
             </View>
             <Card.Content style={{display: 'flex', flexDirection: 'row'}}>
                 <View style={{ width: '40%'}}>
@@ -45,7 +63,7 @@ const ProductItem = (props) => {
                 </View>
                 <View style={{width: '60%'}}>
                     <Text style={{fontSize: 19, marginLeft: 20}}>{props.name}</Text>
-                    <Text style={{fontSize: 16, marginLeft: 20}}>{props.price} €</Text>
+                    <Text style={{fontSize: 16, marginLeft: 20}}>{formatToCurrency(props.price)}</Text>
                     <Rating
                         startingValue={props.rateTotal}
                         imageSize={30}

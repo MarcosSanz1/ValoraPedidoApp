@@ -4,12 +4,13 @@ import { Avatar, Card } from 'react-native-paper';
 import { Rating } from 'react-native-ratings';
 import moment from 'moment';
 
+// This component receives a valoration to content of the card
 const ValorationItem = (props) => {
 
     return (
         <Card style={{height: 200, marginBottom: 30, padding: 5}}>
             <View style={styles.header}>
-                <Avatar.Image size={55} source={props.user.name}/>
+                <Avatar.Image size={55} />
                 <Text style={styles.title}>{props.user.name}</Text>
             </View>
             <Card.Content style={{display: 'flex'}}>

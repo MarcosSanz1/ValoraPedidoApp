@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
-import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import React from 'react';
+import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 
-// El botón va a recibir una función 
+// This button receives a function, styles and text of the button
 const ButtonItem = (props) => {
     return (
         <TouchableOpacity
@@ -11,14 +11,13 @@ const ButtonItem = (props) => {
             <Text style={styles.textCreate}>{props.name}</Text>
         </TouchableOpacity>
     )
-    
 }
 
 const styles = StyleSheet.create({
     buttonCreate: {
-        backgroundColor: '#A1E6B8', 
-        display: 'flex', 
-        alignItems: 'center', 
+        backgroundColor: '#A1E6B8',
+        display: 'flex',
+        alignItems: 'center',
         padding: '4%',
         borderRadius: 4
     },

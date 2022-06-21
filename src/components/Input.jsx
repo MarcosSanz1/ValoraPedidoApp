@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from 'react';
-import { SafeAreaView, TextInput, StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native';
-import { loadImageGallery } from '../config/helpers';
-// import ImagePicker from 'react-native-image-crop-picker';
+import React  from 'react';
+import {TextInput, StyleSheet, Text, View} from 'react-native';
 
+// ESTO DEBERÍA DE CAMBIARLO, PARA QUE SIMPLEMENTE CON UN TextInput Y PASANDOLE PROPS TENGA TODOS LOS INPUTS
+// TAMBIEN INTENTAR CAMBIAR EL onChangeText POR onChange
 const Input = (props) => {
 
   return (
@@ -17,8 +17,6 @@ const Input = (props) => {
                     ...prev,
                     ['shop']: text
                 }))}
-                // onChange={handleChange}
-                // onChangeText={text => setShop(text)}
             />
         </View>
         <View style={{marginVertical: '3%'}}>
@@ -45,7 +43,7 @@ const Input = (props) => {
                 keyboardType={'numeric'}
                 onChangeText={text => props.product(prev => ({
                     ...prev,
-                    ['price']: parseInt(text)
+                    ['price']: Number(text)
                 }))}
                 // onChange={handleChange}
                 // onChangeText={text => setPrice(text)}

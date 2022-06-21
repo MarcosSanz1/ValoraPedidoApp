@@ -1,7 +1,7 @@
 import axios from 'axios';
 import axiosRetry from 'axios-retry';
 
-const axiosInstance = axios.create({baseURL: 'http://192.168.1.41:3001/api/', responseType: 'json', headers: { 'Content-Type': 'application/json' }});
+const axiosInstance = axios.create({baseURL: 'http://192.168.1.49:3001/api/', responseType: 'json', headers: { 'Content-Type': 'application/json' }});
 
 const retryDelay = (retryNumber = 0) => { 
     const seconds = Math.pow(2, retryNumber) * 1000; 
@@ -16,7 +16,7 @@ axiosRetry(axios, {
 }); 
 
 /**
- * FIND_ALL_PRODUCTS (No recibe nada)
+ * FIND_ALL_PRODUCTS (Void)
  * */
 export const getProducts = () => {
     return new Promise((resolve, reject) => {
@@ -29,7 +29,7 @@ export const getProducts = () => {
 }
 
 /**
- * ADD_PRODUCT (Recibe un objeto producto)
+ * ADD_PRODUCT (Product Object)
  * */
 export const addProduct = (data) => {
     console.log('ADD PRODUCT');
@@ -45,7 +45,7 @@ export const addProduct = (data) => {
 }
 
 /**
- * ADD_PRODUCT (Recibe id de producto)
+ * GET_PRODUCT (Product Id)
  * */
  export const findById = (param) => {
     return new Promise((resolve, reject) => {
@@ -58,7 +58,7 @@ export const addProduct = (data) => {
 }
 
 /**
- * ADD_PRODUCT (Recibe id de producto)
+ * DELETE_PRODUCT (Product Id)
  * */
  export const deleteProduct = (param) => {
     return new Promise((resolve, reject) => {

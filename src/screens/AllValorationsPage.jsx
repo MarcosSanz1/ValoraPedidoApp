@@ -1,5 +1,5 @@
 import React, { useEffect} from 'react'
-import { View, Text, FlatList, SafeAreaView, StyleSheet, Image } from 'react-native'
+import { View, Text, FlatList, StyleSheet, Image } from 'react-native'
 import ValorationItem from '../components/ValorationItem'
 import { Rating } from 'react-native-ratings';
 import { findById } from '../services/product.service';
@@ -13,14 +13,12 @@ const AllValorationsPage = ({ route, navigation }) => {
 
     const getProduct = async () => {
         await findById(route.params.id).then(res => {
-            console.log("RES SERVICE FIND BY ID ", res.data)
             setProduct(res.data)
         }).catch (err => console.log('ERROR', err))
     }
 
     useEffect(() => {
         getProduct()
-        console.log('Product ', product)
     }, [])
 
     return (

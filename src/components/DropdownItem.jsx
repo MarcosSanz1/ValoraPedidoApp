@@ -1,7 +1,8 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, FlatList, Modal } from 'react-native';
 import { Icon } from 'react-native-elements';
 
+// This dropdown return a callback to know that the order of the list has been changed
 const DropdownItem = (props) => {
 
   const [visible, setVisible] = useState(false);
@@ -30,7 +31,7 @@ const DropdownItem = (props) => {
 
   const renderItem = ({ item }) => {
     return (
-      <TouchableOpacity style={styles.item} onPress={() => onItemPress (item)}>
+      <TouchableOpacity style={styles.item} onPress={() => onItemPress(item)}>
         <Text> { item.label } </Text> 
       </TouchableOpacity>
     )

@@ -27,6 +27,7 @@ export default function HomeStack(navigation) {
       />
       <Stack.Screen
         name='NewProductScreen'
+        options={{title: 'CREATE NEW PRODUCT'}}
         component={NewProductPage}
       />
     </Stack.Navigator>

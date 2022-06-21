@@ -1,8 +1,6 @@
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import NewProductPage from '../screens/NewProductPage';
-import MyProductsPage from '../screens/MyProductsPage';
 import CreateProductStack from './CreateProductStack';
 import HomeStack from './HomeStack';
 

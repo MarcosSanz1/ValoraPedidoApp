@@ -2,6 +2,7 @@ import * as Permissions from 'expo-permissions';
 import * as ImagePicker from 'expo-image-picker';
 import { Alert } from 'react-native';
 
+// This will be used to choose an image of your device and request gallery permissions from the user
 export const loadImageGallery = async(size) => {
     const response = { status: false, image: null}
     const resultPermissions = await Permissions.askAsync(Permissions.CAMERA)

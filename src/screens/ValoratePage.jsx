@@ -8,19 +8,18 @@ const ValoratePage = ({route, navigation: {goBack}}) => {
 
     const idProduct = route.params
 
-    const { itemId, callback } = route.params;
-
     const [valoration, setValoration] = useState({
         rate: 3,
         comment: ''
     })
 
     const addNewValoration = async () => {
-        console.log("ROUTE PARAMS", route.params.id)
+        console.log('ROUTE PARAMS', route.params)
+        route.params.loading(true)
         await addValoration(route.params.id, valoration).then(res => {
-            console.log("RES SERVICE Add Valoration ", res.data)
             route.params.callback()
             goBack()
+            route.params.loading(false)
         }).catch (err => console.log('ERROR', err))
     }
 
@@ -64,7 +63,6 @@ const ValoratePage = ({route, navigation: {goBack}}) => {
                 <ButtonItem name={'PUBLISH FEEDBACK'} onClick={addNewValoration}/>
                 <Text style={{marginTop: 20, color: '#A2A2A2', textAlign: 'center'}}>Your review will be posted to Valorapp</Text>
             </View>
-            
         </View>
     )
 }
